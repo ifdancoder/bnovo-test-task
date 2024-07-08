@@ -75,7 +75,9 @@ class GuestService {
             $data['phone'] = substr($data['phone'], 1);
         }
 
-        $guest->update($data);
+        if (isset($guest)) {
+            $guest->update($data);
+        }
 
         return $guest;
     }
@@ -83,6 +85,10 @@ class GuestService {
     public function deleteGuest($id)
     {
         $guest = Guest::find($id);
+
+        if (!isset($guest)) {
+            return false;
+        }
 
         $deleted = $guest->delete();
 
